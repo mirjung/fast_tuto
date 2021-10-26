@@ -1,0 +1,16 @@
+# virtual enviroment
+venv
+.venv
+
+# python
+**/__pycache__/*
+
+# env file
+.env*
+!.env.example
+
+# script file
+*.sh
+
+# txt file
+.txt
