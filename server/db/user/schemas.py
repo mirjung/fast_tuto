@@ -1,19 +1,21 @@
-from typing import List
-
+from typing import List, Optional
 from pydantic import BaseModel
-
-from server.db.post.models import Post
+from datetime import datetime
+from db.post.schemas import Post
 
 class UserBase(BaseModel):
+    id: Optional[int]
     email: str
+    password: str
 
 class UserCreate(UserBase):
-    password: str
+    created_at: Optional[datetime]
     
 class User(UserBase):
-    id: int
     is_active: bool
     posts: List[Post] = []
+    updated_at: Optional[datetime]
     
     class Config:
         orm_mode = True
+        arbitrary_types_allowed = True

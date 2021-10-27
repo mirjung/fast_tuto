@@ -1,13 +1,14 @@
 from sqlalchemy.orm import Session
 
+
 from .models import Post as PostModel
 from .schemas import PostCreate as PostCreateSchema
 
-def get_post(db: Session, author_id: int):
-    return db.query(PostModel).filter(PostModel.author_id == author_id).first()
+def get_post(db: Session, id: int):
+    return db.query(PostModel).filter(PostModel.id == id).first()
 
-def create_post(db: Session, posts: PostCreateSchema, author_id: int):
-    new_data = PostModel(**posts.dict(), author_id=author_id)
+def create_post(db: Session, posts: PostCreateSchema):
+    new_data = PostModel(**posts.dict())
     db.add(new_data)
     db.commit()
     db.refresh(new_data)

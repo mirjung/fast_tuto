@@ -2,6 +2,9 @@ fastapi
 python-dotenv
 alembic
 sqlalchemy
-psycopg2
+psycopg2-binary
 uvicorn
 gunicorn
+
+python-jose
+passlib
