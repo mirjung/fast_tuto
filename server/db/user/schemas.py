@@ -1,20 +1,28 @@
 from typing import List, Optional
 from pydantic import BaseModel
 from datetime import datetime
-from db.post.schemas import Post
+
+from server.db.post.schemas import Post
 
 class UserBase(BaseModel):
-    id: Optional[int]
+    id: str
+    name: str
     email: str
-    password: str
 
 class UserCreate(UserBase):
+    password: str
+    is_active: bool
+    updated_at: Optional[datetime]
     created_at: Optional[datetime]
     
-class User(UserBase):
+class UserUpdate(UserBase):
+    password: str
     is_active: bool
+    updated_at: Optional[datetime] = datetime.now()
+    
+class User(UserBase):
     posts: List[Post] = []
-    updated_at: Optional[datetime]
+    updated_at: Optional[datetime] = datetime.now()
     
     class Config:
         orm_mode = True

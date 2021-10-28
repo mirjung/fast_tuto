@@ -2,12 +2,11 @@ from typing import Optional
 
 from fastapi import APIRouter, status
 
-from db.database import engine, Base
-
 from pydantic import BaseModel
 from datetime import timedelta
 
-from api import auth, wrapper
+from server.db.database import engine, Base
+from server.api import auth, wrapper
 
 import logging
 
@@ -19,9 +18,10 @@ Base.metadata.create_all(bind=engine)
 router = APIRouter()
 
 class TokenData(BaseModel):
-    id: int
+    id: str
+    name: str
     email: str
-    is_activate: bool
+    is_active: bool
     
 
 @router.post('')

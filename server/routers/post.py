@@ -3,9 +3,9 @@ from typing import List
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 
-from db.database import SessionLocal, engine, get_db
-from db.post import crud as post_crud, models, schemas
-from db.user import crud as user_crud
+from server.db.database import SessionLocal, engine, get_db
+from server.db.post import crud as post_crud, models, schemas
+from server.db.user import crud as user_crud
 
 import logging
 

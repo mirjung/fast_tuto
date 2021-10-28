@@ -23,7 +23,7 @@ def upgrade():
         sa.Column('id', sa.Integer, primary_key=True, index=True),
         sa.Column('title', sa.String),
         sa.Column('content', sa.Text),
-        sa.Column('author_id', sa.Integer, sa.ForeignKey('users.id')),
+        sa.Column('author_id', sa.String, sa.ForeignKey('users.id')),
         sa.Column('updated_at', sa.DateTime, default=datetime.now),
         sa.Column('created_at', sa.DateTime, default=datetime.now)
     )

@@ -1,8 +1,8 @@
 from typing import List, Optional
 from jose import JWTError, jwt
 from datetime import datetime, timedelta
-from api import wrapper
-from config import SECRET_KEY, ACCESS_TOKEN_EXPIRE_TIME, TOKEN_ALGORITHM
+from server.api import wrapper
+from server.config import SECRET_KEY, ACCESS_TOKEN_EXPIRE_TIME, TOKEN_ALGORITHM
 
 from fastapi import status
 

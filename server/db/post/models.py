@@ -2,7 +2,7 @@ from datetime import datetime
 from sqlalchemy import Column, ForeignKey, Integer, String, Text, DateTime
 from sqlalchemy.orm import relationship
 
-from db.database import Base
+from server.db.database import Base
 
 class Post(Base):
     __tablename__ = 'posts'

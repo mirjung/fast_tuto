@@ -1,8 +1,8 @@
 from sqlalchemy.orm import Session
 
 
-from .models import Post as PostModel
-from .schemas import PostCreate as PostCreateSchema
+from server.db.post.models import Post as PostModel
+from server.db.post.schemas import PostCreate as PostCreateSchema
 
 def get_post(db: Session, id: int):
     return db.query(PostModel).filter(PostModel.id == id).first()

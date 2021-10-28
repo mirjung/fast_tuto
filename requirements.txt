@@ -8,3 +8,7 @@ gunicorn
 
 python-jose
 passlib
+pytest
+pytest-watch
+
+requests
