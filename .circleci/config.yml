@@ -1,0 +1,49 @@
+version: 2.1
+
+jobs:
+  run_tests:
+    docker:
+      - image: ubuntu
+        environment:
+            TEST_DATABSE_URL: postgresql://test:test@localhost/test_fastapi
+      - image: circleci/postgres:9.6.5-alpine-ram
+        environment:
+            POSTGRES_USER: test
+            POSTGRES_PASSWORD: test
+            POSTGRES_DB: test_fastapi
+    steps:
+      - run:
+          name: Initialize
+          command: |
+            export DEBIAN_FRONTEND=noninteractive
+            apt-get update
+            apt-get install -y git wget
+      - checkout
+      - run:
+          name: install dockerize
+          command: wget https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VERSION/dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz && tar -C /usr/local/bin -xzvf dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz && rm dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz
+          environment:
+            DOCKERIZE_VERSION: v0.3.0
+      - run:
+          name: Wait for db
+          command: dockerize -wait tcp://localhost:5432 -timeout 1m
+      - run:
+          name: Install python
+          command: |
+            apt-get install -y python3  python3-pip
+      - run:
+          name: Install python dependencies
+          command: |
+            pip3 install -r requirements.txt
+      - run:
+          name: Databse migrations
+          command: |
+            alembic upgrade head
+      - run:
+          name: Run Unit Tests
+          command: |
+            pytest
+workflows:
+  build_test:
+    jobs:
+      - run_tests
